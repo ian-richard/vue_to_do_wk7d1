@@ -1,14 +1,14 @@
 <template>
  <div id="app">
-   <h1> ToDo list </h1>
+   <h1> ToDo's </h1>
    <form v-on:submit.prevent="saveNewItem">
      
      <input id="new-item" type="text" v-model="newItem"/>
      <!-- radio buttons -->
      <label for="High">High</label>
-     <input type="radio" id="high" value="High" v-model="picked">
+     <input type="radio" id="priority" name="priority" v-model="pick" v-bind:value="true">
      <label for="Low">Low</label>
-     <input type="radio" id="low" value="Low" v-model="picked">
+     <input type="radio" id="priority" name="priority" v-model="pick" v-bind:value="false">
      
      <!-- end-radios -->
      <input type="submit" value="Save item">
@@ -16,10 +16,10 @@
 
    <ul>
      <li v-for="(item, index) in items" :key="index"
-     v-bind:class="item.isCompleted ? 'completed':'not-completed'">
+     v-bind:class="item.priority ? 'priority':'no-priority'">
      <span>{{item.name}}</span>
-     <span v-if="item.isCompleted">Completed!</span>
-     <button v-if="!item.isCompleted" v-on:click="completeItem(index)">Complete</button>
+     <!-- <span v-if="item.priority"></span> -->
+     <!-- <button v-if="!item.isPriority" v-on:click="completeItem(index)">Complete</button> -->
      </li>
    </ul>
  </div>
@@ -30,9 +30,9 @@ export default {
   data(){
     return {
       items: [
-        {name: "Buy shopping", isCompleted: false},
-        {name: "Clean bathroom", isCompleted: true},
-        {name: "Car's MOT", isCompleted: false}
+        {name: "Buy shopping", priority: false},
+        {name: "Clean bathroom", priority: true},
+        {name: "Car's MOT", priority: false}
       ],
       newItem: ""
     }
@@ -41,22 +41,22 @@ export default {
     saveNewItem: function(){
       this.items.push({
         name: this.newItem,
-        isCompleted: false
+        priority: this.pick
       });
       this.newItem = "";
     },
-    completeItem: function(index){
-      this.items[index].isCompleted = true;
-    }
+    // completeItem: function(index){
+    //   this.items[index].isPriority = true;
+    // }
 }
 }
 </script>
 
 <style>
 #app {
-  width: 60%;
+  width: 45%;
   margin: 0 auto;
-  font-family: 'Lato', sans-serif;
+  font-family: Arial, Helvetica, sans-serif
 }
 
 ul {
@@ -76,21 +76,22 @@ li span {
   padding: 8px;
 }
 
-li button {
+/* li button {
   background: black;
   color: #fff;
   border: none;
   padding: 10px;
   cursor: pointer;
-}
+} */
 
-li.completed {
-  border: 2px solid #1a681e;
-  color: #1a681e;
-}
-
-li.not-completed {
+li.priority {
   border: 2px solid red;
+  color: red;
+}
+
+li.no-priority {
+  border: 2px solid black;
+  color: black;
 }
 
 input[type="text"] {
