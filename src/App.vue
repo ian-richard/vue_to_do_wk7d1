@@ -2,14 +2,16 @@
  <div id="app">
    <h1> ToDo list </h1>
    <form v-on:submit.prevent="saveNewItem">
-     <label for="new-item">Add a new item:</label>
+     
      <input id="new-item" type="text" v-model="newItem"/>
      <!-- radio buttons -->
-     <input type="radio" id="high" value="High" v-model="picked">
      <label for="High">High</label>
-     <input type="radio" id="low" value="Low" v-model="picked">
+     <input type="radio" id="high" value="High" v-model="picked">
      <label for="Low">Low</label>
-     <input type="submit" value="Save new item">
+     <input type="radio" id="low" value="Low" v-model="picked">
+     
+     <!-- end-radios -->
+     <input type="submit" value="Save item">
    </form>
 
    <ul>
